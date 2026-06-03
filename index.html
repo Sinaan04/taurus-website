@@ -366,26 +366,92 @@ footer{padding:80px 70px 40px;background:#030303;border-top:1px solid rgba(212,1
   .country-breakdown{grid-template-columns:repeat(2,1fr);}
   .campaign-highlights{grid-template-columns:repeat(2,1fr);}
 }
+
 @media(max-width:768px){
-  nav{padding:15px 20px;}
+
+  body{cursor:auto;}
+  #cursor-outer,#cursor-inner,#cursor-label,#cursor-trail-canvas,.scroll-line-canvas{display:none!important;}
+
+  nav{padding:16px 20px;}
   .nav-links{display:none;}
-  .services-grid{grid-template-columns:1fr;}
-  .portfolio-masonry{grid-template-columns:1fr 1fr;}
-  .proj-card:nth-child(n){grid-column:span 2;min-height:280px;}
-  .testimonials-slider{grid-template-columns:1fr;}
-  .process-steps{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr;}
-  #about,#founder{padding:80px 20px;gap:60px;}
-  #services,#portfolio,#campaigns,#testimonials,#process,#cta,#ratings,#stats{padding:80px 20px;}
-  footer{padding:60px 20px 30px;}
-  .portfolio-header{flex-direction:column;gap:28px;align-items:flex-start;}
-  .campaigns-header{flex-direction:column;gap:28px;align-items:flex-start;}
-  .stats-grid{grid-template-columns:repeat(2,1fr);}
-  .ratings-grid{grid-template-columns:repeat(2,1fr);}
-  .country-breakdown{grid-template-columns:1fr;}
-  .campaign-highlights{grid-template-columns:1fr;}
-  .hero-kpi-strip{flex-wrap:wrap;gap:30px;padding:0 20px;}
+  .nav-logo-text{font-size:1.2rem;letter-spacing:6px;}
+
+  #hero{
+    min-height:1200px;
+    height:auto;
+    padding-top:140px;
+    padding-bottom:260px;
+  }
+
+  .hero-content{max-width:100%;padding:0 20px;}
+  .hero-title{font-size:72px;line-height:.9;}
+
+  .hero-btns{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .btn-gold,.btn-outline-gold{
+    width:100%;
+    max-width:320px;
+  }
+
+  .hero-kpi-strip{
+    position:absolute;
+    left:20px;
+    right:20px;
+    bottom:80px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+
+  .hero-kpi-divider{display:none;}
+  .hero-scroll{display:none;}
+
+  .portfolio-masonry{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .proj-card,
+  .proj-card:nth-child(n){
+    min-height:650px;
+    width:100%;
+  }
+
+  .proj-bg-visual{font-size:70px;}
+  .proj-content{padding:28px;}
+  .proj-name{font-size:2rem;margin-top:40px;}
+  .proj-stats{flex-wrap:wrap;gap:12px;}
+
+  .services-grid,
+  .testimonials-slider,
+  .process-steps,
+  .country-breakdown,
+  .campaign-highlights,
+  .footer-top{
+    grid-template-columns:1fr;
+  }
+
+  .stats-grid,
+  .ratings-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  #about,#founder{
+    grid-template-columns:1fr;
+    padding:80px 20px;
+  }
+
+  #services,#portfolio,#campaigns,#testimonials,#process,#cta,#ratings,#stats{
+    padding:80px 20px;
+  }
+
+  footer{padding:60px 20px;}
 }
+
 </style>
 </head>
 <body>
