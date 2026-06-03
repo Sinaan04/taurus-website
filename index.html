@@ -59,7 +59,7 @@ nav.scrolled{padding:16px 70px;background:rgba(0,0,0,0.92);backdrop-filter:blur(
 .nav-cta span{position:relative;z-index:1;}
 
 /* HERO */
-#hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+#hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
 #hero-canvas{position:absolute;inset:0;width:100%;height:100%;}
 .hero-content{position:relative;z-index:10;text-align:center;max-width:1300px;padding:0 40px;}
 .hero-eyebrow{font-size:0.68rem;letter-spacing:10px;text-transform:uppercase;color:var(--gold);margin-bottom:32px;opacity:0;transform:translateY(30px);animation:fadeUp 1s ease 0.5s forwards;}
@@ -366,198 +366,27 @@ footer{padding:80px 70px 40px;background:#030303;border-top:1px solid rgba(212,1
   .country-breakdown{grid-template-columns:repeat(2,1fr);}
   .campaign-highlights{grid-template-columns:repeat(2,1fr);}
 }
-
 @media(max-width:768px){
-
-  body{cursor:auto;}
-  #cursor-outer,#cursor-inner,#cursor-label,#cursor-trail-canvas,.scroll-line-canvas{display:none!important;}
-
-  nav{padding:14px 18px;}
-  nav.scrolled{padding:14px 18px;}
+  nav{padding:15px 20px;}
   .nav-links{display:none;}
-  .nav-logo-text{font-size:1rem;letter-spacing:4px;}
-  .nav-cta{padding:10px 14px;font-size:.55rem;}
-
-  #hero{
-    min-height:auto;
-    padding:120px 20px 220px;
-    display:block;
-  }
-
-  .hero-content{
-    max-width:100%;
-    padding:0;
-  }
-
-  .hero-title{
-    font-size:clamp(52px,15vw,82px);
-    line-height:.92;
-    margin-bottom:20px;
-  }
-
-  .hero-sub{
-    max-width:100%;
-    font-size:.9rem;
-    letter-spacing:1px;
-    margin-bottom:30px;
-  }
-
-  .hero-btns{
-    flex-direction:column;
-    gap:12px;
-    width:100%;
-  }
-
-  .btn-gold,.btn-outline-gold{
-    width:100%;
-    max-width:320px;
-    margin:0 auto;
-    text-align:center;
-  }
-
-  .hero-kpi-strip{
-    position:absolute;
-    left:20px;
-    right:20px;
-    bottom:30px;
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:14px;
-  }
-
-  .hero-kpi{
-    padding:10px;
-    background:rgba(212,175,55,.03);
-    border:1px solid rgba(212,175,55,.08);
-  }
-
-  .hero-kpi-divider,.hero-scroll{display:none;}
-  .hero-kpi-num{font-size:1.4rem;}
-
-  #about,#founder{
-    grid-template-columns:1fr;
-    padding:80px 20px;
-    gap:40px;
-  }
-
-  .founder-visual,.about-visual{
-    height:auto;
-    min-height:380px;
-  }
-
-  #services,#portfolio,#campaigns,#testimonials,#process,#cta,#ratings,#stats{
-    padding:80px 20px;
-  }
-
-  .services-grid,
-  .testimonials-slider,
-  .process-steps,
-  .footer-top,
-  .country-breakdown,
-  .campaign-highlights,
-  .about-stats,
-  .stats-grid,
-  .ratings-grid{
-    grid-template-columns:1fr;
-  }
-
-  .portfolio-masonry{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-  }
-
-  .proj-card,
-  .proj-card:nth-child(n){
-    min-height:360px;
-    grid-column:auto;
-    grid-row:auto;
-  }
-
-  .campaigns-header,
-  .portfolio-header{
-    flex-direction:column;
-    align-items:flex-start;
-    gap:20px;
-  }
-
-  .campaigns-filter{
-    flex-wrap:wrap;
-  }
-
-  .founder-img-wrap{
-    width:280px;
-    height:380px;
-  }
-
-  .founder-badge{
-    right:0;
-    bottom:10px;
-  }
-
-  .footer-bottom{
-    flex-direction:column;
-    gap:14px;
-    text-align:center;
-  }
-
-  /* iPhone specific fixes */
-  .hero-kpi-strip{
-    position:relative !important;
-    left:auto !important;
-    right:auto !important;
-    bottom:auto !important;
-    margin-top:40px !important;
-    display:grid !important;
-    grid-template-columns:1fr 1fr !important;
-  }
-
-  #hero{
-    padding-bottom:60px !important;
-  }
-
-  .proj-card,
-  .proj-card:nth-child(n){
-    min-height:560px !important;
-  }
-
-  .proj-content{
-    left:0 !important;
-    right:0 !important;
-    padding:24px !important;
-  }
-
-  .proj-name{
-    font-size:2rem !important;
-    line-height:1.1 !important;
-    margin-top:70px !important;
-  }
-
-  .proj-stats{
-    flex-wrap:wrap !important;
-    gap:12px !important;
-  }
-
-  .proj-tag{
-    top:16px !important;
-    right:16px !important;
-    font-size:.5rem !important;
-  }
-
-  .proj-roi-badge{
-    top:16px !important;
-    left:16px !important;
-  }
-
-  .proj-bg-visual{
-    font-size:64px !important;
-    top:120px !important;
-    align-items:flex-start !important;
-  }
-
+  .services-grid{grid-template-columns:1fr;}
+  .portfolio-masonry{grid-template-columns:1fr 1fr;}
+  .proj-card:nth-child(n){grid-column:span 2;min-height:280px;}
+  .testimonials-slider{grid-template-columns:1fr;}
+  .process-steps{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr;}
+  #about,#founder{padding:80px 20px;gap:60px;}
+  #services,#portfolio,#campaigns,#testimonials,#process,#cta,#ratings,#stats{padding:80px 20px;}
+  footer{padding:60px 20px 30px;}
+  .portfolio-header{flex-direction:column;gap:28px;align-items:flex-start;}
+  .campaigns-header{flex-direction:column;gap:28px;align-items:flex-start;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .ratings-grid{grid-template-columns:repeat(2,1fr);}
+  .country-breakdown{grid-template-columns:1fr;}
+  .campaign-highlights{grid-template-columns:1fr;}
+  .hero-kpi-strip{flex-wrap:wrap;gap:30px;padding:0 20px;}
 }
 </style>
-
 </head>
 <body>
 
