@@ -366,64 +366,143 @@ footer{padding:80px 70px 40px;background:#030303;border-top:1px solid rgba(212,1
   .country-breakdown{grid-template-columns:repeat(2,1fr);}
   .campaign-highlights{grid-template-columns:repeat(2,1fr);}
 }
+
 @media(max-width:768px){
 
   body{cursor:auto;}
-  #cursor-outer,#cursor-inner,#cursor-label,#cursor-trail-canvas,.scroll-line-canvas{display:none;}
+  #cursor-outer,#cursor-inner,#cursor-label,#cursor-trail-canvas,.scroll-line-canvas{display:none!important;}
 
-  nav{padding:15px 20px;}
+  nav{padding:14px 18px;}
+  nav.scrolled{padding:14px 18px;}
   .nav-links{display:none;}
+  .nav-logo-text{font-size:1rem;letter-spacing:4px;}
+  .nav-cta{padding:10px 14px;font-size:.55rem;}
 
-  .nav-logo-text{font-size:1.15rem;letter-spacing:5px;}
-  .nav-cta{padding:10px 16px;font-size:.6rem;letter-spacing:2px;}
+  #hero{
+    min-height:auto;
+    padding:120px 20px 220px;
+    display:block;
+  }
 
-  #hero{min-height:1000px;height:auto;padding-top:140px;padding-bottom:120px;}
+  .hero-content{
+    max-width:100%;
+    padding:0;
+  }
 
-  .hero-content{padding:0 20px;}
-  .hero-title{font-size:clamp(52px,16vw,88px);line-height:.92;}
-  .hero-sub{max-width:100%;line-height:1.8;margin-bottom:40px;}
+  .hero-title{
+    font-size:clamp(52px,15vw,82px);
+    line-height:.92;
+    margin-bottom:20px;
+  }
 
-  .hero-btns{flex-direction:column;width:100%;max-width:320px;margin:0 auto;}
-  .btn-gold,.btn-outline-gold{width:100%;text-align:center;padding:16px 20px;}
+  .hero-sub{
+    max-width:100%;
+    font-size:.9rem;
+    letter-spacing:1px;
+    margin-bottom:30px;
+  }
+
+  .hero-btns{
+    flex-direction:column;
+    gap:12px;
+    width:100%;
+  }
+
+  .btn-gold,.btn-outline-gold{
+    width:100%;
+    max-width:320px;
+    margin:0 auto;
+    text-align:center;
+  }
 
   .hero-kpi-strip{
     position:absolute;
     left:20px;
     right:20px;
-    bottom:120px;
+    bottom:30px;
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
+    gap:14px;
+  }
+
+  .hero-kpi{
+    padding:10px;
+    background:rgba(212,175,55,.03);
+    border:1px solid rgba(212,175,55,.08);
+  }
+
+  .hero-kpi-divider,.hero-scroll{display:none;}
+  .hero-kpi-num{font-size:1.4rem;}
+
+  #about,#founder{
+    grid-template-columns:1fr;
+    padding:80px 20px;
+    gap:40px;
+  }
+
+  .founder-visual,.about-visual{
+    height:auto;
+    min-height:380px;
+  }
+
+  #services,#portfolio,#campaigns,#testimonials,#process,#cta,#ratings,#stats{
+    padding:80px 20px;
+  }
+
+  .services-grid,
+  .testimonials-slider,
+  .process-steps,
+  .footer-top,
+  .country-breakdown,
+  .campaign-highlights,
+  .about-stats,
+  .stats-grid,
+  .ratings-grid{
+    grid-template-columns:1fr;
+  }
+
+  .portfolio-masonry{
+    display:flex;
+    flex-direction:column;
     gap:16px;
   }
 
-  .hero-kpi{width:100%;}
-  .hero-kpi-divider{display:none;}
-  .hero-kpi-num{font-size:2rem;}
-  .hero-scroll{display:none;}
+  .proj-card,
+  .proj-card:nth-child(n){
+    min-height:360px;
+    grid-column:auto;
+    grid-row:auto;
+  }
 
-  .services-grid{grid-template-columns:1fr;}
-  .portfolio-masonry{grid-template-columns:1fr;}
-  .proj-card:nth-child(n){grid-column:span 1;min-height:320px;}
-  .testimonials-slider{grid-template-columns:1fr;}
-  .process-steps{grid-template-columns:1fr;}
-  .footer-top{grid-template-columns:1fr;}
-  .stats-grid{grid-template-columns:1fr;}
-  .ratings-grid{grid-template-columns:1fr;}
-  .country-breakdown{grid-template-columns:1fr;}
-  .campaign-highlights{grid-template-columns:1fr;}
-  .about-stats{grid-template-columns:1fr;}
-
-  #about,#founder{padding:80px 20px;gap:60px;}
-  #services,#portfolio,#campaigns,#testimonials,#process,#cta,#ratings,#stats{padding:80px 20px;}
-  footer{padding:60px 20px 30px;}
-
-  .campaigns-header,.portfolio-header{
+  .campaigns-header,
+  .portfolio-header{
     flex-direction:column;
     align-items:flex-start;
-    gap:24px;
+    gap:20px;
+  }
+
+  .campaigns-filter{
+    flex-wrap:wrap;
+  }
+
+  .founder-img-wrap{
+    width:280px;
+    height:380px;
+  }
+
+  .founder-badge{
+    right:0;
+    bottom:10px;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:14px;
+    text-align:center;
   }
 }
 </style>
+
 </head>
 <body>
 
