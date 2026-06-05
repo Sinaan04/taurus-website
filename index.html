@@ -518,6 +518,131 @@ section{position:relative;z-index:2;width:100%;}
 .cta-email::after{content:'';position:absolute;bottom:-6px;left:0;width:0;height:1px;background:var(--gold);transition:width 0.4s;}
 .cta-email:hover::after{width:100%;}
 
+/* PREDICTOR SECTION Styles */
+#predictor {
+  padding: 160px 75px;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+.predictor-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.predictor-container {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 70px;
+  margin-top: 60px;
+  align-items: center;
+}
+.predictor-inputs {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 45px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-radius: 4px;
+}
+.predictor-input-group {
+  display: flex;
+  flex-direction: column;
+}
+.predictor-label {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 12px;
+}
+.pred-highlight-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+.pred-slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 2px;
+  background: rgba(212, 175, 55, 0.15);
+  outline: none;
+  transition: background 0.3s;
+  cursor: pointer;
+}
+.pred-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+  transition: transform 0.2s;
+}
+.pred-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+}
+.predictor-outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.pred-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.pred-metric-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 22px 25px;
+  border-radius: 2px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.pred-metric-lbl {
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 6px;
+}
+.pred-metric-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.pred-chart-wrap {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 25px;
+  border-radius: 2px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.pred-chart-title {
+  font-size: 0.6rem;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  margin-bottom: 20px;
+}
+#predictor-chart {
+  width: 100%;
+  height: 180px;
+  display: block;
+}
+
 /* FOOTER */
 footer{padding:90px 75px 45px;background:var(--bg);border-top:1px solid var(--card-border);position:relative;z-index:2;}
 .footer-inner{max-width:1440px;margin:0 auto;}
@@ -685,6 +810,7 @@ body:not(.light-theme) .mobile-menu {
   .dashboard-metrics-row{grid-template-columns:1fr 1fr;}
   .hero-kpi-strip{grid-template-columns:repeat(3,1fr); gap: 20px;}
   .hero-kpi::after{display:none;}
+  .predictor-container{grid-template-columns:1fr; gap:50px;}
 }
 
 @media(max-width:900px){
@@ -725,7 +851,8 @@ body:not(.light-theme) .mobile-menu {
   .process-steps::before{display:none!important;}
   .campaigns-table-scroll{-webkit-overflow-scrolling:touch;}
   
-  #about,#founder,#services,#portfolio,#campaigns,#testimonials,#process,#cta,#ratings,#stats{padding:80px 20px;}
+  #about,#founder,#services,#portfolio,#campaigns,#testimonials,#process,#cta,#ratings,#stats,#predictor{padding:80px 20px;}
+  .predictor-inputs{padding:30px 20px;}
   footer{padding:60px 20px;}
   .drawer-content{padding:40px 20px;}
 }
@@ -1045,6 +1172,74 @@ body:not(.light-theme) .mobile-menu {
         <h3 class="service-name">Community<br>Management</h3>
         <p class="service-desc">Building loyal communities that drive real results. From Discord servers to Instagram communities — we build tribes that convert.</p>
         <div class="service-arrow"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREDICTOR -->
+<section id="predictor">
+  <div class="predictor-inner">
+    <div class="section-label reveal">Taurus Forecasting Engine</div>
+    <h2 class="section-title reveal">Predict Your <span class="gold">Empire's Growth</span></h2>
+    <div class="predictor-container reveal">
+      <!-- Left Inputs -->
+      <div class="predictor-inputs">
+        <div class="predictor-input-group">
+          <label class="predictor-label">Select Industry</label>
+          <select id="predIndustry" class="select-styled" style="width:100%;">
+            <option value="crypto">Crypto & Meme Coins (High Risk/Yield)</option>
+            <option value="luxury">Luxury & Jewelry (High Ticket)</option>
+            <option value="fnb">F&B & Retail (Mass Volume)</option>
+            <option value="d2c">D2C & Skincare (Direct Sales)</option>
+            <option value="b2b">B2B & IT Services (Corporate Lead Gen)</option>
+          </select>
+        </div>
+        <div class="predictor-input-group">
+          <label class="predictor-label">Target Market</label>
+          <select id="predMarket" class="select-styled" style="width:100%;">
+            <option value="global">Global / Web3 Space</option>
+            <option value="singapore">Singapore (Premium Hub)</option>
+            <option value="india">India (Hyper Growth)</option>
+            <option value="usa">USA (Established Market)</option>
+          </select>
+        </div>
+        <div class="predictor-input-group">
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <label class="predictor-label">Monthly Ad Budget</label>
+            <span id="predBudgetValue" class="pred-highlight-val">$5,000</span>
+          </div>
+          <input type="range" id="predBudget" min="500" max="50000" step="500" value="5000" class="pred-slider">
+        </div>
+        <div class="predictor-input-group">
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+            <label class="predictor-label">Campaign Duration</label>
+            <span id="predDurationValue" class="pred-highlight-val">3 Months</span>
+          </div>
+          <input type="range" id="predDuration" min="1" max="12" step="1" value="3" class="pred-slider">
+        </div>
+      </div>
+
+      <!-- Right Visual Outputs & Canvas -->
+      <div class="predictor-outputs">
+        <div class="pred-metrics-grid">
+          <div class="pred-metric-card">
+            <div class="pred-metric-lbl">Expected Impressions</div>
+            <div class="pred-metric-val" id="predImpressions">0</div>
+          </div>
+          <div class="pred-metric-card">
+            <div class="pred-metric-lbl">Followers Forecast</div>
+            <div class="pred-metric-val" id="predFollowers">0</div>
+          </div>
+          <div class="pred-metric-card" style="grid-column: span 2;">
+            <div class="pred-metric-lbl">Projected Campaign ROI Yield</div>
+            <div class="pred-metric-val" id="predROI" style="color:var(--gold);">0%</div>
+          </div>
+        </div>
+        <div class="pred-chart-wrap">
+          <div class="pred-chart-title">Estimated Performance Curve</div>
+          <canvas id="predictor-chart"></canvas>
+        </div>
       </div>
     </div>
   </div>
@@ -2738,6 +2933,204 @@ window.addEventListener('DOMContentLoaded', () => {
     renderer.render(scene, camera);
   }
   animate();
+})();
+
+
+// ---- TAURUS FORECASTING ENGINE CORE ----
+(function() {
+  const predIndustry = document.getElementById('predIndustry');
+  const predMarket = document.getElementById('predMarket');
+  const predBudget = document.getElementById('predBudget');
+  const predDuration = document.getElementById('predDuration');
+
+  const predBudgetValue = document.getElementById('predBudgetValue');
+  const predDurationValue = document.getElementById('predDurationValue');
+
+  const predImpressions = document.getElementById('predImpressions');
+  const predFollowers = document.getElementById('predFollowers');
+  const predROI = document.getElementById('predROI');
+
+  const chartCanvas = document.getElementById('predictor-chart');
+  if (!chartCanvas) return;
+  const ctx = chartCanvas.getContext('2d');
+
+  // Multipliers / coefficients
+  const industryCoeffs = {
+    crypto: { roi: 12.8, followers: 8.5, impressions: 5.8 },
+    luxury: { roi: 6.2, followers: 1.8, impressions: 3.2 },
+    fnb: { roi: 4.5, followers: 4.8, impressions: 8.2 },
+    d2c: { roi: 5.8, followers: 3.5, impressions: 6.5 },
+    b2b: { roi: 2.8, followers: 1.2, impressions: 2.5 }
+  };
+
+  const marketCoeffs = {
+    global: 1.4,
+    singapore: 1.15,
+    india: 1.25,
+    usa: 0.95
+  };
+
+  function formatCompactNumber(number) {
+    if (number >= 1e6) return (number / 1e6).toFixed(1) + 'M';
+    if (number >= 1e3) return (number / 1e3).toFixed(1) + 'K';
+    return number.toString();
+  }
+
+  function updateForecasting() {
+    const indVal = predIndustry.value;
+    const mktVal = predMarket.value;
+    const budget = parseFloat(predBudget.value);
+    const duration = parseFloat(predDuration.value);
+
+    // Update display values
+    if(predBudgetValue) predBudgetValue.textContent = '$' + budget.toLocaleString();
+    if(predDurationValue) predDurationValue.textContent = duration + (duration === 1 ? ' Month' : ' Months');
+
+    // Coefficients
+    const coeff = industryCoeffs[indVal];
+    const mkt = marketCoeffs[mktVal];
+
+    // Forecast formulas
+    const impressionsVal = Math.round(budget * coeff.impressions * mkt * 2.8 * (0.85 + duration * 0.15));
+    const followersVal = Math.round(budget * coeff.followers * mkt * 0.45 * (0.9 + duration * 0.1));
+    const roiVal = Math.round(coeff.roi * 10 * mkt * (0.8 + (12 - duration) * 0.03));
+
+    // Animate output changes
+    if(predImpressions) animCountFast(predImpressions, impressionsVal, '', true);
+    if(predFollowers) animCountFast(predFollowers, followersVal, '', true);
+    if(predROI) animCountFast(predROI, roiVal, '%');
+
+    // Redraw chart
+    drawChart(roiVal, duration);
+  }
+
+  function animCountFast(el, target, suffix='', isCompact=false) {
+    let c = parseFloat(el.textContent.replace(/[^0-9.]/g, '')) || 0;
+    const steps = 15;
+    const inc = (target - c) / steps;
+    let step = 0;
+    const timer = setInterval(() => {
+      c += inc;
+      step++;
+      if (step >= steps) {
+        c = target;
+        clearInterval(timer);
+      }
+      el.textContent = isCompact ? formatCompactNumber(Math.round(c)) : Math.round(c).toLocaleString() + suffix;
+    }, 20);
+  }
+
+  function drawChart(finalRoi, duration) {
+    // Clear and size canvas
+    const dpr = window.devicePixelRatio || 1;
+    const rect = chartCanvas.getBoundingClientRect();
+    chartCanvas.width = rect.width * dpr;
+    chartCanvas.height = rect.height * dpr;
+    ctx.scale(dpr, dpr);
+
+    const w = rect.width;
+    const h = rect.height;
+
+    ctx.clearRect(0, 0, w, h);
+
+    // Draw grid lines
+    ctx.strokeStyle = document.body.classList.contains('light-theme') ? 'rgba(212,175,55,0.06)' : 'rgba(212,175,55,0.025)';
+    ctx.lineWidth = 1;
+    for (let x = 50; x < w; x += 80) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h - 25); ctx.stroke();
+    }
+    for (let y = 30; y < h - 20; y += 40) {
+      ctx.beginPath(); ctx.moveTo(40, y); ctx.lineTo(w, y); ctx.stroke();
+    }
+
+    // Draw axis lines
+    ctx.strokeStyle = document.body.classList.contains('light-theme') ? 'rgba(154, 123, 16, 0.3)' : 'rgba(212, 175, 55, 0.15)';
+    ctx.beginPath();
+    ctx.moveTo(40, 10);
+    ctx.lineTo(40, h - 25);
+    ctx.lineTo(w - 10, h - 25);
+    ctx.stroke();
+
+    // Draw smooth bezier curve for forecast path
+    const points = [];
+    const stepX = (w - 70) / 4;
+    const startY = h - 25;
+    const midY1 = h - 25 - (h - 60) * 0.22;
+    const midY2 = h - 25 - (h - 60) * 0.65;
+    const endY = h - 25 - (h - 60) * Math.min(finalRoi / 2000, 0.95);
+
+    points.push({ x: 40, y: startY });
+    points.push({ x: 40 + stepX * 1, y: midY1 });
+    points.push({ x: 40 + stepX * 2, y: midY2 });
+    points.push({ x: 40 + stepX * 4, y: endY });
+
+    // Drawing Curve
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (let i = 0; i < points.length - 1; i++) {
+      const xc = (points[i].x + points[i + 1].x) / 2;
+      const yc = (points[i].y + points[i + 1].y) / 2;
+      ctx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+    }
+    ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+    
+    // Gold gradient stroke
+    const grad = ctx.createLinearGradient(40, 0, w, 0);
+    grad.addColorStop(0, '#9A7B10');
+    grad.addColorStop(1, '#F5D060');
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Drawing shadow/glow fill under curve
+    ctx.lineTo(points[points.length - 1].x, h - 25);
+    ctx.lineTo(40, h - 25);
+    ctx.closePath();
+    const fillGrad = ctx.createLinearGradient(0, 0, 0, h - 25);
+    fillGrad.addColorStop(0, document.body.classList.contains('light-theme') ? 'rgba(212,175,55,0.08)' : 'rgba(212,175,55,0.038)');
+    fillGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = fillGrad;
+    ctx.fill();
+
+    // Draw dynamic glow dots at anchors
+    points.forEach((p, idx) => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+      ctx.fillStyle = '#D4AF37';
+      ctx.fill();
+
+      // Label timepoints on x-axis
+      ctx.font = '500 8px Space Grotesk, sans-serif';
+      ctx.fillStyle = document.body.classList.contains('light-theme') ? '#1a1916' : 'rgba(255,255,255,0.35)';
+      ctx.textAlign = 'center';
+      const tLabel = idx === 0 ? 'Start' : idx === 1 ? 'Wk 2' : idx === 2 ? 'Mo 2' : `Mo ${duration}`;
+      ctx.fillText(tLabel, p.x, h - 12);
+    });
+
+    // Label y-axis markers
+    ctx.font = '500 8px Space Grotesk, sans-serif';
+    ctx.fillStyle = document.body.classList.contains('light-theme') ? '#1a1916' : 'rgba(255,255,255,0.35)';
+    ctx.textAlign = 'right';
+    ctx.fillText('0%', 32, h - 22);
+    ctx.fillText(Math.round(finalRoi / 2) + '%', 32, (h - 25 + endY) / 2 + 3);
+    ctx.fillText(finalRoi + '%', 32, endY + 3);
+  }
+
+  // Event bindings
+  [predIndustry, predMarket, predBudget, predDuration].forEach(input => {
+    if(input) {
+      input.addEventListener('input', updateForecasting);
+      input.addEventListener('change', updateForecasting);
+    }
+  });
+
+  // Init
+  setTimeout(updateForecasting, 150);
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    updateForecasting();
+  });
 })();
 
 
