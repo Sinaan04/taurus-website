@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TAURUS — We Don't Follow Trends. We Create Them.</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Outfit:wght@200;300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
 
@@ -205,16 +206,16 @@ nav.scrolled{padding:16px 75px;border-bottom:1px solid rgba(212,175,55,0.2);box-
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.03;
+  opacity: 0.25;
   transition: opacity 0.5s ease;
 }
-.hero-watermark img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.hero-watermark canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 body.light-theme .hero-watermark {
-  opacity: 0.015;
+  opacity: 0.16;
 }
 .hero-content-wrapper{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:1440px;margin:0 auto;}
 .hero-content{position:relative;z-index:10;text-align:center;max-width:1400px;padding:0 40px;transform-style:preserve-3d;margin-bottom:40px;}
@@ -829,9 +830,7 @@ body:not(.light-theme) .mobile-menu {
 <!-- HERO -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
-  <div class="hero-watermark">
-    <img src="Taurus logo.webp" alt="Taurus Watermark">
-  </div>
+  <div id="hero-3d-container" class="hero-watermark"></div>
   <div class="hero-content-wrapper">
     <div class="hero-content">
       <p class="hero-eyebrow">✦ 69 Campaigns · 57.8M+ Impressions · 528% Avg ROI ✦</p>
@@ -2633,6 +2632,113 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+// ---- 3D WEBGL HERO EMBLEM (THREE.JS) ----
+(function() {
+  const container = document.getElementById('hero-3d-container');
+  if (!container) return;
+
+  // Scene setup
+  const scene = new THREE.Scene();
+  
+  // Camera
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+  camera.position.z = 8;
+
+  // Renderer
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  // Geometry: Faceted Luxury Torus Knot (procedural gold jewel structure)
+  const geometry = new THREE.TorusKnotGeometry(1.6, 0.5, 90, 8, 2, 3);
+  
+  // Material: Premium Reflective Gold
+  const material = new THREE.MeshStandardMaterial({
+    color: 0xD4AF37,
+    metalness: 0.95,
+    roughness: 0.18,
+    flatShading: true // Luxury faceted cut
+  });
+  
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+
+  // Lights
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambientLight);
+
+  const dirLight1 = new THREE.DirectionalLight(0xfff5d0, 1.2);
+  dirLight1.position.set(5, 5, 5);
+  scene.add(dirLight1);
+
+  const dirLight2 = new THREE.DirectionalLight(0xd4af25, 0.8);
+  dirLight2.position.set(-5, -5, 3);
+  scene.add(dirLight2);
+
+  // Mouse move lighting effect
+  let targetMouseX = 0, targetMouseY = 0;
+  let currentMouseX = 0, currentMouseY = 0;
+
+  document.addEventListener('mousemove', (e) => {
+    targetMouseX = (e.clientX / window.innerWidth - 0.5) * 4;
+    targetMouseY = -(e.clientY / window.innerHeight - 0.5) * 4;
+  });
+
+  // Scroll dynamics
+  let scrollYPercent = 0;
+  window.addEventListener('scroll', () => {
+    scrollYPercent = window.scrollY / window.innerHeight;
+  });
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
+
+  // Animation loop
+  const clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+
+    const elapsedTime = clock.getElapsedTime();
+
+    // Auto rotation
+    mesh.rotation.y = elapsedTime * 0.15;
+    mesh.rotation.x = elapsedTime * 0.08;
+
+    // Mouse interactive tilt
+    currentMouseX += (targetMouseX - currentMouseX) * 0.05;
+    currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+    mesh.rotation.y += currentMouseX * 0.15;
+    mesh.rotation.x -= currentMouseY * 0.15;
+
+    // Direct light follows mouse slightly
+    dirLight1.position.x = 5 + currentMouseX * 2;
+    dirLight1.position.y = 5 + currentMouseY * 2;
+
+    // Scroll dynamics: shrink and rotate faster as scroll down
+    if (scrollYPercent < 1.2) {
+      const scale = Math.max(1.0 - scrollYPercent * 0.8, 0);
+      mesh.scale.set(scale, scale, scale);
+      mesh.rotation.y += scrollYPercent * 0.8;
+      
+      // Adapt opacity via container style
+      container.style.opacity = Math.max((document.body.classList.contains('light-theme') ? 0.16 : 0.25) * (1.0 - scrollYPercent), 0);
+    }
+
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
 
 
 // ---- AUDIT MESSAGE FOR AUDIENCE CONSOLE ----
