@@ -792,6 +792,19 @@ body:not(.light-theme) .mobile-menu {
   color: #000;
 }
 
+body.sound-muted .speaker-on-icon {
+  display: none !important;
+}
+body.sound-muted .speaker-off-icon {
+  display: block !important;
+}
+body:not(.sound-muted) .speaker-on-icon {
+  display: block !important;
+}
+body:not(.sound-muted) .speaker-off-icon {
+  display: none !important;
+}
+
 /* RESPONSIVE */
 @media(max-width:1200px){
   nav{padding:20px 40px;}
@@ -930,6 +943,19 @@ body:not(.light-theme) .mobile-menu {
         <!-- Moon Icon -->
         <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      <button id="sound-toggle" class="theme-toggle-btn" aria-label="Toggle sound" data-cursor="Toggle Sound">
+        <!-- Speaker High Icon -->
+        <svg class="speaker-on-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+        <!-- Speaker Mute Icon -->
+        <svg class="speaker-off-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <line x1="23" y1="9" x2="17" y2="15"></line>
+          <line x1="17" y1="9" x2="23" y2="15"></line>
         </svg>
       </button>
       <button id="hamburger-toggle" class="hamburger-btn" aria-label="Toggle menu" data-cursor="Menu">
@@ -2103,6 +2129,7 @@ function renderPagination(startIndex){
 
 // Drawer Details Controller
 function openCampaignDrawer(id){
+  TaurusAudio.play('sweep');
   const campaign = campaigns.find(c => c.id === id);
   if(!campaign) return;
 
@@ -2125,6 +2152,7 @@ function openCampaignDrawer(id){
 }
 
 function closeCampaignDrawer(){
+  TaurusAudio.play('sweep');
   document.getElementById('drawerOverlay').classList.remove('active');
   document.getElementById('drawerContent').classList.remove('active');
   document.body.style.overflow = '';
@@ -2235,6 +2263,7 @@ function bindCursorListeners(){
     if(el.dataset.cursorBound) return;
     el.dataset.cursorBound = "true";
     el.addEventListener('mouseenter',()=>{
+      TaurusAudio.play('click');
       curOuter.style.transform='translate(-50%,-50%) scale(2.8)';
       curOuter.style.borderColor='rgba(212,175,55,0.75)';
       curOuter.style.background='rgba(212,175,55,0.05)';
@@ -2715,6 +2744,9 @@ document.querySelectorAll('.btn-gold,.btn-outline-gold,.nav-cta,.pag-btn').forEa
     const y=(e.clientY-r.top-r.height/2)*0.28;
     btn.style.transform=`translate(${x}px,${y}px)`;
   });
+  btn.addEventListener('click', () => {
+    TaurusAudio.play('pop');
+  });
   btn.addEventListener('mouseleave',()=>{
     btn.style.transform='';btn.style.transition='transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
   });
@@ -2782,6 +2814,7 @@ window.addEventListener('resize',()=>{
 const themeToggleBtn = document.getElementById('theme-toggle');
 if (themeToggleBtn) {
   themeToggleBtn.addEventListener('click', () => {
+    TaurusAudio.play('chime');
     document.body.classList.toggle('light-theme');
     const isLight = document.body.classList.contains('light-theme');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
@@ -2801,6 +2834,33 @@ window.addEventListener('DOMContentLoaded', () => {
   initFilters();
   updatePortalDashboard();
   bindCursorListeners();
+
+  // Sound toggle control logic
+  const soundToggleBtn = document.getElementById('sound-toggle');
+  if (soundToggleBtn) {
+    const savedAudio = localStorage.getItem('sound-active');
+    if (savedAudio === 'active') {
+      document.body.classList.remove('sound-muted');
+      TaurusAudio.setMuted(false);
+    } else {
+      document.body.classList.add('sound-muted');
+      TaurusAudio.setMuted(true);
+    }
+
+    soundToggleBtn.addEventListener('click', () => {
+      const isMutedNow = !TaurusAudio.isMuted();
+      TaurusAudio.setMuted(isMutedNow);
+      
+      if (isMutedNow) {
+        document.body.classList.add('sound-muted');
+        localStorage.setItem('sound-active', 'muted');
+      } else {
+        document.body.classList.remove('sound-muted');
+        localStorage.setItem('sound-active', 'active');
+        TaurusAudio.play('chime'); // Verification sound
+      }
+    });
+  }
 
   // Mobile menu toggle logic
   const hamburgerToggle = document.getElementById('hamburger-toggle');
@@ -2995,6 +3055,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const followersVal = Math.round(budget * coeff.followers * mkt * 0.45 * (0.9 + duration * 0.1));
     const roiVal = Math.round(coeff.roi * 10 * mkt * (0.8 + (12 - duration) * 0.03));
 
+    // Play tick sound for slider changes
+    TaurusAudio.play('tick');
+
     // Animate output changes
     if(predImpressions) animCountFast(predImpressions, impressionsVal, '', true);
     if(predFollowers) animCountFast(predFollowers, followersVal, '', true);
@@ -3131,6 +3194,147 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     updateForecasting();
   });
+})();
+
+
+// ---- TAURUS MICRO-SONICS SYNTHESIZER ENGINE ----
+const TaurusAudio = (function() {
+  let audioCtx = null;
+  let isMuted = true; // Start muted by default to obey browser autoplay rules
+
+  function initAudio() {
+    if (audioCtx) return;
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new AudioContextClass();
+  }
+
+  function playSound(type) {
+    if (isMuted) return;
+    initAudio();
+    if (!audioCtx || audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+
+    const now = audioCtx.currentTime;
+
+    if (type === 'click') {
+      // Soft, high-fashion haptic click
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      const filter = audioCtx.createBiquadFilter();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1200, now);
+      osc.frequency.exponentialRampToValueAtTime(300, now + 0.04);
+
+      filter.type = 'highpass';
+      filter.frequency.setValueAtTime(600, now);
+
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.05);
+
+    } else if (type === 'pop') {
+      // Deeper button haptic feedback pop
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.exponentialRampToValueAtTime(80, now + 0.06);
+
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.07);
+
+    } else if (type === 'chime') {
+      // Luxury glass chime chime (theme switch)
+      const gainNode = audioCtx.createGain();
+      gainNode.gain.setValueAtTime(0.08, now);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+      gainNode.connect(audioCtx.destination);
+
+      // Play double harmonic tones
+      [880, 1320].forEach((freq, idx) => {
+        const osc = audioCtx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.05);
+        osc.connect(gainNode);
+        osc.start(now + idx * 0.05);
+        osc.stop(now + 0.6);
+      });
+
+    } else if (type === 'sweep') {
+      // Warm synthesizer filter sweep (modal drawer)
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      const filter = audioCtx.createBiquadFilter();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.exponentialRampToValueAtTime(380, now + 0.35);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(100, now);
+      filter.frequency.exponentialRampToValueAtTime(800, now + 0.35);
+      filter.Q.setValueAtTime(3, now);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.08, now + 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.36);
+
+    } else if (type === 'tick') {
+      // Rapid tick for slider adjustments
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(800, now);
+
+      gain.gain.setValueAtTime(0.02, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.015);
+
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.02);
+    }
+  }
+
+  function setMuted(muteState) {
+    isMuted = muteState;
+    if (!isMuted) {
+      initAudio();
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    }
+  }
+
+  return {
+    play: playSound,
+    setMuted: setMuted,
+    isMuted: () => isMuted
+  };
 })();
 
 
