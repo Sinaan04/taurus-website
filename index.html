@@ -4139,14 +4139,35 @@ const TaurusAudio = (function() {
     const indicator = showTypingIndicator();
     startTypingSound();
 
-    setTimeout(() => {
+    // Call Gemini API through Serverless Proxy
+    fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: text })
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('API Key missing or server error');
+      return res.json();
+    })
+    .then(data => {
       stopTypingSound();
       removeTypingIndicator(indicator);
-      
-      const reply = getAiResponse(text);
-      appendMessage(reply, false, true);
+      appendMessage(data.reply, false, true);
       TaurusAudio.play('click');
-    }, 1200 + Math.random() * 800);
+    })
+    .catch(err => {
+      console.warn('Gemini endpoint error, using local playbook fallback:', err);
+      // Fail-safe: Fallback to local playbook mapping
+      setTimeout(() => {
+        stopTypingSound();
+        removeTypingIndicator(indicator);
+        const reply = getAiResponse(text);
+        appendMessage(reply, false, true);
+        TaurusAudio.play('click');
+      }, 600);
+    });
   }
 })();
 
