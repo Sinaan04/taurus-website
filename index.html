@@ -4125,6 +4125,9 @@ const TaurusAudio = (function() {
     `;
   }
 
+  // Conversation History state
+  const conversationHistory = [];
+
   function sendMessage() {
     const text = inputField.value.trim();
     if (!text) return;
@@ -4134,6 +4137,9 @@ const TaurusAudio = (function() {
     inputField.value = '';
     
     TaurusAudio.play('pop');
+
+    // Add user message to history
+    conversationHistory.push({ role: 'user', content: text });
 
     // Simulate Bot response
     const indicator = showTypingIndicator();
@@ -4145,7 +4151,7 @@ const TaurusAudio = (function() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message: text })
+      body: JSON.stringify({ message: text, history: conversationHistory })
     })
     .then(res => {
       if (!res.ok) throw new Error('API Key missing or server error');
@@ -4156,6 +4162,8 @@ const TaurusAudio = (function() {
       removeTypingIndicator(indicator);
       appendMessage(data.reply, false, true);
       TaurusAudio.play('click');
+      // Add model response to history
+      conversationHistory.push({ role: 'model', content: data.reply });
     })
     .catch(err => {
       console.warn('Gemini endpoint error, using local playbook fallback:', err);
