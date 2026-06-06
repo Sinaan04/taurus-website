@@ -86,6 +86,9 @@ export default async function handler(req, res) {
 
     const data = await response.json();
     if (data.error) {
+      if (data.error.status === 'RESOURCE_EXHAUSTED' || data.error.code === 429) {
+        return res.status(200).json({ reply: 'TRIGGER_FALLBACK' });
+      }
       return res.status(200).json({ reply: `Gemini API Error: ${data.error.message} (Status: ${data.error.status})` });
     }
     

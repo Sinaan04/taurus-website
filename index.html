@@ -4145,7 +4145,6 @@ const TaurusAudio = (function() {
     const indicator = showTypingIndicator();
     startTypingSound();
 
-    // Call Gemini API through Serverless Proxy
     fetch('/api/chat', {
       method: 'POST',
       headers: {
@@ -4160,10 +4159,18 @@ const TaurusAudio = (function() {
     .then(data => {
       stopTypingSound();
       removeTypingIndicator(indicator);
-      appendMessage(data.reply, false, true);
-      TaurusAudio.play('click');
-      // Add model response to history
-      conversationHistory.push({ role: 'model', content: data.reply });
+      
+      if (data.reply === 'TRIGGER_FALLBACK') {
+        const fallbackReply = getAiResponse(text);
+        appendMessage(fallbackReply, false, true);
+        TaurusAudio.play('click');
+        conversationHistory.push({ role: 'model', content: fallbackReply });
+      } else {
+        appendMessage(data.reply, false, true);
+        TaurusAudio.play('click');
+        // Add model response to history
+        conversationHistory.push({ role: 'model', content: data.reply });
+      }
     })
     .catch(err => {
       console.warn('Gemini endpoint error, using local playbook fallback:', err);
