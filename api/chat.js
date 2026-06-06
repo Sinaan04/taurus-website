@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-  // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -24,7 +23,7 @@ export default async function handler(req, res) {
 
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'Gemini API key is not configured on server.' });
+    return res.status(200).json({ reply: 'Error: GEMINI_API_KEY environment variable is missing on Vercel.' });
   }
 
   try {
@@ -50,11 +49,15 @@ export default async function handler(req, res) {
     );
 
     const data = await response.json();
+    if (data.error) {
+      return res.status(200).json({ reply: `Gemini API Error: ${data.error.message} (Status: ${data.error.status})` });
+    }
+    
     const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text || 'I could not generate a playbook projection right now. Let me outline our target strategy instead.';
 
     return res.status(200).json({ reply: replyText });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Error generating content from Gemini.' });
+    return res.status(200).json({ reply: `Internal Server Error: ${error.message}` });
   }
 }
