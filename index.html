@@ -587,6 +587,33 @@ section{position:relative;z-index:2;width:100%;}
 .pred-slider::-webkit-slider-thumb:hover {
   transform: scale(1.25);
 }
+.pred-export-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+  color: #000;
+  border: none;
+  padding: 14px 20px;
+  font-size: 0.85rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+}
+.pred-export-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+.pred-export-btn i {
+  font-size: 1.05rem;
+}
 .predictor-outputs {
   display: flex;
   flex-direction: column;
@@ -641,6 +668,345 @@ section{position:relative;z-index:2;width:100%;}
   width: 100%;
   height: 180px;
   display: block;
+}
+
+/* Embedded AI Creative Copilot Styles */
+#copilot-section {
+  padding: 100px 75px;
+  background: var(--bg);
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--card-border);
+}
+.copilot-section-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+.copilot-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 40px;
+  margin-top: 50px;
+}
+.copilot-visionary-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 40px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px var(--shadow);
+}
+.copilot-visionary-card .visionary-img-wrap {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 20px var(--gold-glow);
+  margin-bottom: 25px;
+  position: relative;
+}
+.copilot-visionary-card .visionary-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.copilot-visionary-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--text);
+}
+.copilot-visionary-card .visionary-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+.copilot-visionary-card .visionary-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 229, 114, 0.08);
+  border: 1px solid rgba(0, 229, 114, 0.2);
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-family: 'Space Grotesk', sans-serif;
+  color: #00e572;
+  margin-bottom: 20px;
+}
+.copilot-visionary-card .visionary-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00e572;
+  box-shadow: 0 0 8px #00e572;
+}
+.copilot-visionary-card .visionary-bio {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-bottom: 25px;
+}
+.copilot-visionary-card .visionary-meta {
+  width: 100%;
+  border-top: 1px solid var(--card-border);
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.copilot-visionary-card .visionary-meta-item {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.copilot-visionary-card .visionary-meta-item strong {
+  color: var(--text);
+}
+.copilot-visionary-card .visionary-callout {
+  margin-top: 25px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--gold);
+  border: 1px dashed var(--gold-border-heavy);
+  padding: 12px 15px;
+  border-radius: 4px;
+  background: rgba(212, 175, 55, 0.02);
+  text-align: left;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.copilot-visionary-card .visionary-callout i {
+  margin-top: 3px;
+  font-size: 0.95rem;
+}
+
+.copilot-chat-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  overflow: hidden;
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  box-shadow: 0 20px 50px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  height: 580px;
+}
+.copilot-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(212, 175, 55, 0.02);
+}
+.copilot-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.copilot-header-info {
+  display: flex;
+  flex-direction: column;
+}
+.copilot-header-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+.copilot-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.55rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-family: 'Space Grotesk', sans-serif;
+  margin-top: 2px;
+}
+.copilot-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00e572;
+  box-shadow: 0 0 8px #00e572;
+}
+
+.copilot-chat {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.copilot-msg {
+  max-width: 80%;
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.copilot-msg.bot {
+  background: rgba(212, 175, 55, 0.04);
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
+}
+.copilot-msg.user {
+  background: var(--gold);
+  color: #000;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
+  font-weight: 500;
+}
+.copilot-link {
+  color: var(--gold-light);
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+}
+body.light-theme .copilot-link {
+  color: var(--gold-dark);
+}
+.copilot-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 24px;
+  border-top: 1px solid var(--card-border);
+}
+.copilot-suggest-tag {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 6px 12px;
+  font-size: 0.65rem;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+.copilot-suggest-tag:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.05);
+}
+
+.copilot-input-area {
+  padding: 15px 24px;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  gap: 10px;
+  background: rgba(212, 175, 55, 0.02);
+}
+.copilot-input {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text);
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  font-family: 'Space Grotesk', sans-serif;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.3s;
+}
+.copilot-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.15);
+}
+.copilot-send {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-light));
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.copilot-send:hover {
+  transform: scale(1.05);
+}
+.copilot-send svg {
+  width: 16px;
+  height: 16px;
+  stroke: #000;
+  fill: none;
+}
+
+/* Typing Indicator */
+.copilot-typing {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.copilot-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: typingDot 1.4s infinite;
+  opacity: 0.4;
+}
+.copilot-dot:nth-child(2) { animation-delay: 0.2s; }
+.copilot-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingDot {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-4px); opacity: 1; }
+}
+
+@media(max-width: 1024px) {
+  .copilot-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  #copilot-section {
+    padding: 60px 30px;
+  }
+}
+
+@media(max-width: 768px) {
+  #copilot-section {
+    padding: 50px 15px;
+  }
+  .copilot-visionary-card {
+    padding: 30px 20px;
+  }
+  .copilot-chat-container {
+    height: 500px;
+  }
 }
 
 /* FOOTER */
@@ -1265,6 +1631,92 @@ body:not(.sound-muted) .speaker-off-icon {
         <div class="pred-chart-wrap">
           <div class="pred-chart-title">Estimated Performance Curve</div>
           <canvas id="predictor-chart"></canvas>
+          <button id="predExportBtn" class="pred-export-btn" data-cursor="Export Report" style="margin-top: 25px;">
+            <i class="fas fa-file-pdf"></i> Export Strategy Proposal
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI CREATIVE COPILOT SECTION -->
+<section id="copilot-section" class="section">
+  <div class="copilot-section-inner">
+    <div class="reveal">
+      <div class="section-label">Interactive AI Creative Partner</div>
+      <h2 class="section-title">Creative <span class="gold">Copilot</span></h2>
+    </div>
+
+    <div class="copilot-grid reveal">
+      <!-- Left Visionary Bio Card -->
+      <div class="copilot-visionary-card">
+        <div class="visionary-img-wrap">
+          <img src="image.jpg" alt="Sinaan Salim Akbar">
+        </div>
+        <h3>SINAAN SALIM</h3>
+        <div class="visionary-title">Visionary & Founder</div>
+        
+        <div class="visionary-status">
+          <div class="visionary-status-dot"></div>
+          <span>AI Twin Active (Online)</span>
+        </div>
+
+        <p class="visionary-bio">
+          Synthesizing Web3 performance marketing, high-ticket F&B growth hacking, and premium corporate branding. Ask my AI twin how we generate high-yield client returns.
+        </p>
+
+        <div class="visionary-meta">
+          <div class="visionary-meta-item">
+            Email: <strong>hello@taurus.agency</strong>
+          </div>
+          <div class="visionary-meta-item">
+            Audited Campaigns: <strong>69 Built</strong>
+          </div>
+          <div class="visionary-meta-item">
+            Average Campaign Yield: <strong>528% ROI</strong>
+          </div>
+        </div>
+
+        <div class="visionary-callout">
+          <i class="fas fa-rocket"></i>
+          <span>Interact with any campaign playbook on the right, and partner with us to deploy the exact same growth framework for your brand.</span>
+        </div>
+      </div>
+
+      <!-- Right Chat Console Container -->
+      <div class="copilot-chat-container">
+        <div class="copilot-header">
+          <div class="copilot-avatar">S</div>
+          <div class="copilot-header-info">
+            <div class="copilot-header-name">SINAAN (AI Copilot)</div>
+            <div class="copilot-status">
+              <div class="copilot-status-dot"></div>
+              <span>Forecasting Live Playbooks</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="copilot-chat" id="copilot-chat">
+          <div class="copilot-msg bot">
+            I'm Sinaan's AI twin, trained on our 69 campaigns. Ask me how we hit 2,380% ROI on CryptoWojak, scaled Jaipur Jewels, or synchronized F&B launches. What are we building today?
+          </div>
+        </div>
+
+        <div class="copilot-suggestions">
+          <div class="copilot-suggest-tag" data-prompt="How to launch a Web3 Token?">How to launch a Web3 Token?</div>
+          <div class="copilot-suggest-tag" data-prompt="Strategy for luxury jewelry?">Strategy for luxury jewelry?</div>
+          <div class="copilot-suggest-tag" data-prompt="What is your average campaign ROI?">What is your average campaign ROI?</div>
+        </div>
+
+        <div class="copilot-input-area">
+          <input type="text" id="copilot-input" class="copilot-input" placeholder="Ask Sinaan's AI twin...">
+          <button id="copilot-send" class="copilot-send" aria-label="Send Message">
+            <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -3120,7 +3572,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const startY = h - 25;
     const midY1 = h - 25 - (h - 60) * 0.22;
     const midY2 = h - 25 - (h - 60) * 0.65;
-    const endY = h - 25 - (h - 60) * Math.min(finalRoi / 2000, 0.95);
+    const endY = h - 25 - (h - 60) * Math.min(finalRoi / 250, 0.95);
 
     points.push({ x: 40, y: startY });
     points.push({ x: 40 + stepX * 1, y: midY1 });
@@ -3194,6 +3646,168 @@ window.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     updateForecasting();
   });
+
+  // Export Report PDF Exporter
+  const exportBtn = document.getElementById('predExportBtn');
+  if (exportBtn) {
+    exportBtn.addEventListener('click', () => {
+      TaurusAudio.play('sweep');
+      
+      const originalText = exportBtn.innerHTML;
+      exportBtn.disabled = true;
+      exportBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+
+      if (typeof window.jspdf === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+        script.onload = () => {
+          generatePDF(exportBtn, originalText);
+        };
+        script.onerror = () => {
+          alert('Failed to load PDF library. Please try again.');
+          exportBtn.disabled = false;
+          exportBtn.innerHTML = originalText;
+        };
+        document.head.appendChild(script);
+      } else {
+        generatePDF(exportBtn, originalText);
+      }
+    });
+  }
+
+  function generatePDF(btn, originalText) {
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const isLight = document.body.classList.contains('light-theme');
+      
+      const bgColor = isLight ? '#faf7f2' : '#070708';
+      const textColor = isLight ? '#1a1916' : '#ffffff';
+      const mutedColor = isLight ? '#7c7667' : '#8e8e93';
+      const goldColor = '#D4AF37';
+      const cardBg = isLight ? '#ffffff' : '#121214';
+      const borderColor = isLight ? 'rgba(154, 123, 16, 0.28)' : 'rgba(212, 175, 55, 0.08)';
+
+      doc.setFillColor(bgColor);
+      doc.rect(0, 0, 210, 297, 'F');
+
+      doc.setFillColor(goldColor);
+      doc.rect(0, 0, 210, 3, 'F');
+
+      doc.setTextColor(goldColor);
+      doc.setFont('Helvetica', 'bold');
+      doc.setFontSize(24);
+      doc.text('TAURUS', 20, 25);
+      
+      doc.setTextColor(textColor);
+      doc.setFontSize(10);
+      doc.setFont('Helvetica', 'normal');
+      doc.text('PERFORMANCE AGENCY', 20, 31);
+
+      doc.setTextColor(mutedColor);
+      doc.setFontSize(8);
+      doc.text('DATE: ' + new Date().toLocaleDateString(), 150, 25);
+      doc.text('CLASSIFICATION: CONFIDENTIAL', 150, 30);
+
+      doc.setDrawColor(borderColor);
+      doc.line(20, 38, 190, 38);
+
+      doc.setTextColor(textColor);
+      doc.setFont('Helvetica', 'bold');
+      doc.setFontSize(16);
+      doc.text('CAMPAIGN GROWTH & ROI FORECAST', 20, 48);
+      
+      doc.setTextColor(mutedColor);
+      doc.setFont('Helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.text('Custom strategy projection generated by the Taurus Algorithmic Predictor Engine.', 20, 54);
+
+      doc.setFillColor(cardBg);
+      doc.setDrawColor(borderColor);
+      doc.rect(20, 62, 170, 42, 'FD');
+
+      doc.setTextColor(goldColor);
+      doc.setFont('Helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.text('CAMPAIGN CONFIGURATION', 25, 69);
+
+      doc.setTextColor(textColor);
+      doc.setFont('Helvetica', 'normal');
+      doc.setFontSize(9);
+      
+      const indName = predIndustry.options[predIndustry.selectedIndex].text;
+      const mktName = predMarket.options[predMarket.selectedIndex].text;
+      
+      doc.text('Selected Industry: ' + indName, 25, 78);
+      doc.text('Target Geography: ' + mktName, 25, 84);
+      doc.text('Monthly Ad Budget: ' + predBudgetValue.textContent + ' USD', 25, 90);
+      doc.text('Execution Duration: ' + predDurationValue.textContent, 25, 96);
+
+      doc.setFillColor(cardBg);
+      doc.rect(20, 112, 170, 35, 'FD');
+
+      doc.setTextColor(goldColor);
+      doc.setFont('Helvetica', 'bold');
+      doc.text('PROJECTED PERFORMANCE METRICS', 25, 119);
+
+      doc.setTextColor(textColor);
+      doc.setFont('Helvetica', 'normal');
+      
+      doc.text('Expected Impressions Yield:', 25, 128);
+      doc.setFont('Helvetica', 'bold');
+      doc.text(predImpressions.textContent, 80, 128);
+
+      doc.setFont('Helvetica', 'normal');
+      doc.text('Followers Community Growth:', 25, 134);
+      doc.setFont('Helvetica', 'bold');
+      doc.text(predFollowers.textContent, 80, 134);
+
+      doc.setFont('Helvetica', 'normal');
+      doc.text('Projected Campaign ROI Yield:', 25, 140);
+      doc.setFont('Helvetica', 'bold');
+      doc.setTextColor(goldColor);
+      doc.text(predROI.textContent, 80, 140);
+
+      doc.setTextColor(textColor);
+      doc.setFont('Helvetica', 'bold');
+      doc.setFontSize(10);
+      doc.text('ESTIMATED PERFORMANCE CURVE', 20, 160);
+
+      const chartImg = chartCanvas.toDataURL('image/png');
+      doc.addImage(chartImg, 'PNG', 20, 166, 170, 75);
+
+      doc.setTextColor(mutedColor);
+      doc.setFont('Helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.text('* Disclaimer: Projections are computed based on historical performance models of our 69 audited campaigns. Actual results may vary depending on execution window, creative fatigue, and network platform bidding changes.', 20, 255, { maxWidth: 170 });
+
+      doc.line(20, 267, 190, 267);
+
+      doc.setFontSize(8.5);
+      doc.setTextColor(goldColor);
+      doc.setFont('Helvetica', 'bold');
+      doc.text('TAURUS MARKETING GROUP', 20, 275);
+      
+      doc.setTextColor(textColor);
+      doc.setFont('Helvetica', 'normal');
+      doc.text('hello@taurus.agency  |  www.taurus.agency', 20, 280);
+
+      doc.save('Taurus_Growth_Forecast.pdf');
+      
+      TaurusAudio.play('chime');
+    } catch(err) {
+      console.error(err);
+      alert('Error exporting PDF: ' + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = originalText;
+    }
+  }
 })();
 
 
@@ -3338,10 +3952,160 @@ const TaurusAudio = (function() {
 })();
 
 
+// ---- SINAAN SALIM Akbar's AI CREATIVE COPILOT CORE ----
+(function() {
+  const chatHistory = document.getElementById('copilot-chat');
+  const inputField = document.getElementById('copilot-input');
+  const sendBtn = document.getElementById('copilot-send');
+
+  if (!chatHistory || !inputField || !sendBtn) return;
+
+  // Suggestion chips handler
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('copilot-suggest-tag')) {
+      const text = e.target.getAttribute('data-prompt');
+      if (text) {
+        inputField.value = text;
+        sendMessage();
+      }
+    }
+  });
+
+  // Handle Send triggers
+  sendBtn.addEventListener('click', sendMessage);
+  inputField.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+  });
+
+  function appendMessage(text, isUser = false, isHtml = false) {
+    const msg = document.createElement('div');
+    msg.className = `copilot-msg ${isUser ? 'user' : 'bot'}`;
+    if (isHtml) {
+      msg.innerHTML = text;
+    } else {
+      msg.textContent = text;
+    }
+    chatHistory.appendChild(msg);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+  }
+
+  function showTypingIndicator() {
+    const indicator = document.createElement('div');
+    indicator.className = 'copilot-msg bot copilot-typing-indicator';
+    indicator.innerHTML = `
+      <div class="copilot-typing">
+        <div class="copilot-dot"></div>
+        <div class="copilot-dot"></div>
+        <div class="copilot-dot"></div>
+      </div>
+    `;
+    chatHistory.appendChild(indicator);
+    chatHistory.scrollTop = chatHistory.scrollHeight;
+    return indicator;
+  }
+
+  function removeTypingIndicator(indicator) {
+    if (indicator && indicator.parentNode) {
+      indicator.parentNode.removeChild(indicator);
+    }
+  }
+
+  // Synthesis playback typing tick
+  let typingSoundInterval = null;
+  function startTypingSound() {
+    typingSoundInterval = setInterval(() => {
+      TaurusAudio.play('tick');
+    }, 120);
+  }
+  function stopTypingSound() {
+    clearInterval(typingSoundInterval);
+  }
+
+  const playbooks = {
+    crypto: `
+      <strong>The Degen Launch Playbook:</strong><br>
+      In Web3, community is currency. When we launched <span class="copilot-link" onclick="openCampaignDrawer(56)">CryptoWojak</span>, we hit <strong>2,380% ROI</strong> and built a 74,500 degen community in 1.5 months. <br><br>
+      <strong>Sinaan's Rule:</strong> Skip traditional B2B ads. Go directly to Twitter Spaces, Telegram alpha channels, and meme-generation engines. Keep it authentic. 
+      See also: <span class="copilot-link" onclick="openCampaignDrawer(44)">SafePepe (2,140% ROI)</span> and <span class="copilot-link" onclick="openCampaignDrawer(12)">ShibaFloki (1,580% ROI)</span>.
+    `,
+    luxury: `
+      <strong>The High-Ticket Festive Playbook:</strong><br>
+      For premium brands like <span class="copilot-link" onclick="openCampaignDrawer(27)">Jaipur Jewels</span>, we achieved a <strong>720% ROI</strong> by timing our campaigns with Diwali and wedding seasons.<br><br>
+      <strong>Sinaan's Rule:</strong> Luxury is about prestige and heritage, not discounts. Build high-end visual storytelling, utilize micro-influencer gifting programs, and craft premium wedding season custom lookbooks.
+    `,
+    fnb: `
+      <strong>The Local Nostalgia Playbook:</strong><br>
+      To scale regional chains like <span class="copilot-link" onclick="openCampaignDrawer(47)">Kochi Koffee</span> (+720% ROI) or <span class="copilot-link" onclick="openCampaignDrawer(1)">Chai Wala Co</span> (+340% ROI), sync Swiggy/Zomato coupon launches with viral Instagram reels.<br><br>
+      <strong>Sinaan's Rule:</strong> Food marketing must be hyper-local and visual. Focus on process videos (making filters, pouring coffee, baking) that trigger physical cravings.
+    `,
+    metrics: `
+      <strong>Our Audited Track Record:</strong><br>
+      Across all 69 performance campaigns, we average a <strong>528% ROI</strong>. Our conversion rate indicates that <strong>59%</strong> of our campaigns hit Outstanding or Excellent classifications.<br><br>
+      Explore our real-time <a href="#campaigns" class="copilot-link">Campaign Database</a> to filter our full performance audit.
+    `,
+    contact: `
+      <strong>Let's Build Your Empire:</strong><br>
+      Ready to kick off a campaign? Shoot Sinaan and the crew a message directly at <a href="mailto:hello@taurus.agency" class="copilot-link">hello@taurus.agency</a> or scroll down to our <a href="#cta" class="copilot-link">Contact Section</a> to schedule a call.
+    `
+  };
+
+  function getAiResponse(input) {
+    const text = input.toLowerCase();
+    
+    if (text.includes('crypto') || text.includes('meme') || text.includes('token') || text.includes('web3') || text.includes('coin') || text.includes('pepe') || text.includes('wojak') || text.includes('shiba')) {
+      return playbooks.crypto;
+    }
+    if (text.includes('luxury') || text.includes('jewel') || text.includes('gold') || text.includes('fashion') || text.includes('jaipur') || text.includes('expensive')) {
+      return playbooks.luxury;
+    }
+    if (text.includes('food') || text.includes('coffee') || text.includes('cafe') || text.includes('kochi') || text.includes('chai') || text.includes('restaurant') || text.includes('fnb')) {
+      return playbooks.fnb;
+    }
+    if (text.includes('roi') || text.includes('metric') || text.includes('stat') || text.includes('rate') || text.includes('record') || text.includes('result')) {
+      return playbooks.metrics;
+    }
+    if (text.includes('contact') || text.includes('hire') || text.includes('start') || text.includes('email') || text.includes('meeting') || text.includes('book')) {
+      return playbooks.contact;
+    }
+
+    return `
+      Interesting. In our 69 campaigns across India, Singapore, and USA, we've found that generic marketing is just noise. <br><br>
+      To build a real brand empire, you need to sync budget allocation with target audience culture. Tell me more about your brand: is it <strong>Crypto</strong>, <strong>Luxury Jewelry</strong>, <strong>F&B/Retail</strong>, or <strong>D2C</strong>? I'll outline our play.
+    `;
+  }
+
+  function sendMessage() {
+    const text = inputField.value.trim();
+    if (!text) return;
+
+    // Append User message
+    appendMessage(text, true);
+    inputField.value = '';
+    
+    TaurusAudio.play('pop');
+
+    // Simulate Bot response
+    const indicator = showTypingIndicator();
+    startTypingSound();
+
+    setTimeout(() => {
+      stopTypingSound();
+      removeTypingIndicator(indicator);
+      
+      const reply = getAiResponse(text);
+      appendMessage(reply, false, true);
+      TaurusAudio.play('click');
+    }, 1200 + Math.random() * 800);
+  }
+})();
+
+
 // ---- AUDIT MESSAGE FOR AUDIENCE CONSOLE ----
 console.log('%c TAURUS INTERACTIVE PORTAL ','background:linear-gradient(135deg,#9A7B10,#F5D060);color:#000;font-size:24px;font-family:serif;padding:12px 28px;font-weight:900;');
 console.log('%c 69 Campaigns · $348,600 · 57.8M Impressions · 528% Avg ROI ','color:#D4AF37;font-size:12px;font-weight:bold;');
 console.log('%c Redesigned Visual Architecture - Sinaan Salim Ali Akbar ','color:rgba(212,175,55,0.6);font-size:10px;');
 </script>
+
+
 </body>
 </html>
